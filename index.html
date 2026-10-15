@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthWay — Həkim axtar, vaxtını seç</title>
+  <meta name="description" content="HealthWay ilə həkim tap, boş vaxtı seç və onlayn növbə götür.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#home"><span class="brand-icon">♥</span> Health<span>Way</span></a>
+  <nav>
+    <a href="#home">Ana səhifə</a>
+    <a href="#doctors">Həkimlər</a>
+    <a href="#campaigns">Kampaniyalar</a>
+    <a href="#specialties">İxtisaslar</a>
+    <a href="#about">Haqqımızda</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="btn ghost" onclick="openModal('login')">Daxil ol</button>
+    <button class="btn primary" onclick="openModal('signup')">Qeydiyyat</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy">
+    <div class="eyebrow">SAĞLAMLIĞINIZ ÜÇÜN SADƏ HƏLL</div>
+    <h1>Həkim axtarma.<br>Növbə axtarma.<br><em>Vaxtını seç.</em></h1>
+    <p>Sevdiyin həkimdən onlayn növbə al, qəbul saatına yaxın get və xəstəxanada uzun saatlar gözləmə.</p>
+    <div class="search-box">
+      <select id="specialtySearch">
+        <option value="">İxtisas seçin</option>
+        <option>Dermatoloq</option><option>Stomatoloq</option><option>Kardioloq</option>
+        <option>Ginekoloq</option><option>Pediatr</option><option>Terapevt</option>
+      </select>
+      <select id="citySearch"><option>Bakı</option><option>Xırdalan</option><option>Sumqayıt</option></select>
+      <input type="date" id="dateSearch">
+      <button class="btn primary search-btn" onclick="searchDoctors()">Axtar</button>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="orb orb1"></div><div class="orb orb2"></div>
+    <div class="doctor-illustration">
+      <div class="doctor-head"></div><div class="doctor-body"></div>
+      <div class="stethoscope">⌁</div>
+      <div class="floating-card card-a">✓ Növbən təsdiqləndi</div>
+      <div class="floating-card card-b">16:30 · Bu gün</div>
+    </div>
+  </div>
+</section>
+
+<section class="quick-features">
+  <div class="feature"><div class="feature-icon">▣</div><div><b>Onlayn növbə</b><small>Xəstəxanada uzun növbələrə son.</small></div></div>
+  <div class="feature"><div class="feature-icon">♙</div><div><b>Həkimlər</b><small>Təcrübəli həkimlərə asan çıxış.</small></div></div>
+  <div class="feature"><div class="feature-icon">⚑</div><div><b>Kampaniyalar</b><small>Pulsuz müayinələr və xüsusi təkliflər.</small></div></div>
+  <div class="feature"><div class="feature-icon">✓</div><div><b>Təhlükəsiz</b><small>Məlumatlarınız qorunur.</small></div></div>
+</section>
+
+<section class="section" id="specialties">
+  <div class="section-head"><div><span class="eyebrow">İXTİSASLAR</span><h2>Necə bir həkim axtarırsan?</h2></div><a href="#doctors">Hamısına bax →</a></div>
+  <div class="specialties">
+    <button onclick="filterDoctors('Terapevt')"><span>✚</span>Terapevt</button>
+    <button onclick="filterDoctors('Dermatoloq')"><span>◉</span>Dermatoloq</button>
+    <button onclick="filterDoctors('Stomatoloq')"><span>✦</span>Stomatoloq</button>
+    <button onclick="filterDoctors('Ginekoloq')"><span>♧</span>Ginekoloq</button>
+    <button onclick="filterDoctors('Kardioloq')"><span>♡</span>Kardioloq</button>
+    <button onclick="filterDoctors('Pediatr')"><span>♧</span>Pediatr</button>
+  </div>
+</section>
+
+<section class="section alt" id="doctors">
+  <div class="section-head"><div><span class="eyebrow">HƏKİMLƏR</span><h2>Uyğun həkimi tap</h2><p class="muted">Boş vaxtı olan həkimləri gör və sənə uyğun saatı seç.</p></div>
+    <select id="sortDoctors" onchange="renderDoctors()"><option value="rating">Reytinqə görə</option><option value="price">Qiymətə görə</option></select>
+  </div>
+  <div class="doctor-layout">
+    <aside class="filters">
+      <h3>Filtrlər</h3>
+      <label>İxtisas</label>
+      <select id="filterSpecialty" onchange="renderDoctors()"><option value="">Bütün ixtisaslar</option><option>Dermatoloq</option><option>Stomatoloq</option><option>Kardioloq</option><option>Ginekoloq</option><option>Pediatr</option><option>Terapevt</option></select>
+      <label>Şəhər</label><select><option>Bakı</option><option>Xırdalan</option></select>
+      <label>Qiymət aralığı</label><select><option>Bütün qiymətlər</option><option>0–30 AZN</option><option>30–50 AZN</option></select>
+      <label>Minimum reytinq</label><select><option>Hamısı</option><option>4.5+</option><option>4.8+</option></select>
+    </aside>
+    <div class="doctor-list" id="doctorList"></div>
+  </div>
+</section>
+
+<section class="section campaign-section" id="campaigns">
+  <div class="section-head"><div><span class="eyebrow">KAMPANİYALAR</span><h2>Sağlamlığın üçün fürsətlər</h2></div><button class="text-btn" onclick="showToast('Bütün kampaniyalar yükləndi')">Hamısına bax →</button></div>
+  <div class="campaign-grid">
+    <article class="campaign">
+      <div class="campaign-photo skin">✦</div><div class="campaign-body"><span class="pill green">Pulsuz müayinə</span><h3>Pulsuz dermatoloji müayinə</h3><p>Dr. Aysel Məmmədova · Bakı Medical Center</p><div class="campaign-meta">📅 5 oktyabr · 10:00–16:00</div><button class="btn primary full" onclick="bookCampaign('Pulsuz dermatoloji müayinə')">Növbə götür</button></div>
+    </article>
+    <article class="campaign">
+      <div class="campaign-photo dental">✦</div><div class="campaign-body"><span class="pill coral">Endirim</span><h3>Stomatoloji konsultasiya — 50% endirim</h3><p>Dr. Kamran Rüstəmov · Modern Hospital</p><div class="campaign-meta">📅 6 oktyabr · 09:00–14:00</div><button class="btn primary full" onclick="bookCampaign('Stomatoloji konsultasiya')">Növbə götür</button></div>
+    </article>
+    <article class="campaign">
+      <div class="campaign-photo child">✦</div><div class="campaign-body"><span class="pill green">Pulsuz müayinə</span><h3>Pediatrik ilkin müayinə</h3><p>Dr. Leyla Əliyeva · City Hospital</p><div class="campaign-meta">📅 7 oktyabr · 11:00–15:00</div><button class="btn primary full" onclick="bookCampaign('Pediatrik ilkin müayinə')">Növbə götür</button></div>
+    </article>
+  </div>
+</section>
+
+<section class="cta" id="about">
+  <div><span class="eyebrow">HEALTHWAY</span><h2>Həkim qəbuluna vaxtında çat.<br>Vaxtını xəstəxanada itirmə.</h2><p>Platformamız pasiyentləri həkimlərlə daha rahat birləşdirmək üçün hazırlanıb.</p></div>
+  <button class="btn white" onclick="document.querySelector('#doctors').scrollIntoView({behavior:'smooth'})">Həkim axtar →</button>
+</section>
+</main>
+
+<footer><div class="brand"><span class="brand-icon">♥</span> Health<span>Way</span></div><p>© 2026 HealthWay. Demo startup layihəsi.</p><div><a href="#">Məxfilik</a><a href="#">Şərtlər</a></div></footer>
+
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- HealthWay professional support chatbot -->
+<div class="hw-chat" id="hwChat">
+  <section class="hw-chat-panel" id="hwChatPanel" aria-label="HealthWay onlayn köməkçi" aria-hidden="true">
+    <header class="hw-chat-head">
+      <div class="hw-chat-avatar"><span>♥</span><i></i></div>
+      <div class="hw-chat-heading"><strong>HealthWay köməkçi</strong><span><b></b> Onlayn · Sizə kömək etməyə hazıram</span></div>
+      <button class="hw-chat-close" id="hwChatClose" aria-label="Çatı bağla">×</button>
+    </header>
+    <div class="hw-chat-context"><span class="hw-context-icon">✦</span><div><strong>Salam! Xoş gəlmisiniz 👋</strong><p>Həkim tapmaq və növbə götürmək üçün sizə kömək edə bilərəm.</p></div></div>
+    <div class="hw-chat-messages" id="hwChatMessages" role="log" aria-live="polite"></div>
+    <div class="hw-chat-suggestions" id="hwChatSuggestions">
+      <button type="button" data-chat="doctor">🩺 Həkim tapmaq istəyirəm</button>
+      <button type="button" data-chat="booking">📅 Növbəni necə götürüm?</button>
+      <button type="button" data-chat="price">💳 Qəbul qiymətləri</button>
+      <button type="button" data-chat="campaign">🎁 Kampaniyalar</button>
+    </div>
+    <form class="hw-chat-compose" id="hwChatForm">
+      <label class="hw-sr-only" for="hwChatInput">Mesajınızı yazın</label>
+      <input id="hwChatInput" type="text" maxlength="500" placeholder="Mesajınızı yazın..." autocomplete="off">
+      <button type="submit" aria-label="Mesajı göndər"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 15 22l-4-9-9-4 20-7ZM22 2 11 13" /></svg></button>
+    </form>
+    <div class="hw-chat-foot">HealthWay · Sağlamlığınız üçün daha rahat yol</div>
+  </section>
+  <button class="hw-chat-launcher" id="hwChatLauncher" aria-label="HealthWay köməkçisini aç" aria-expanded="false">
+    <span class="hw-launcher-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H5l-2 2v-6a7.5 7.5 0 1 1 17-3.5Z"/><path d="M8 11h8M8 14h5"/></svg></span>
+    <span class="hw-launcher-label">Sizə kömək edək?</span><span class="hw-chat-ping"></span>
+  </button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
